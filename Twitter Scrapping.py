@@ -1,13 +1,7 @@
 import pandas as pd
 import snscrape.modules.twitter as sntwitter
-
 import json
 import streamlit as st
-
-
-
-
-
 
 st.set_page_config(page_title='Twitter Scrapping tool by Deepak Prem')
 st.header('Twitter Scrapping Tool ')
@@ -41,7 +35,6 @@ if st.button('Upload into data base'):
 
   print("Uploaded")
 
-
 ds=pd.read_csv(r'Database.csv')
 
 @st.experimental_memo
@@ -71,7 +64,6 @@ st.download_button(
 import csv
 import json
 
-
 # Function to convert a CSV to JSON
 # Takes the file paths as arguments
 def make_json(csvFilePath, jsonFilePath):
@@ -94,7 +86,6 @@ def make_json(csvFilePath, jsonFilePath):
     # function to dump data
     with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
-
 
 # Driver Code
 
