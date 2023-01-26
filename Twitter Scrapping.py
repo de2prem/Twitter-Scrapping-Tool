@@ -1,7 +1,13 @@
 import pandas as pd
 import snscrape.modules.twitter as sntwitter
+
 import json
 import streamlit as st
+
+
+
+
+
 
 st.set_page_config(page_title='Twitter Scrapping tool by Deepak Prem')
 st.header('Twitter Scrapping Tool ')
@@ -26,15 +32,17 @@ for i, tweet in enumerate(sntwitter.TwitterSearchScraper(f'{text} since:{startda
 # Creating a dataframe to load the list
 tweets_df = pd.DataFrame(attributes_container, columns=["date", "id", "tweet content", "user","reply count", "retweet count","language", "source", "like count"])
 
-tweets_df.to_csv(r'C:\Users\Deepak\Desktop\Searchresults.csv')
-df = pd.read_csv(r'C:\Users\Deepak\Desktop\Searchresults.csv')
+tweets_df.to_csv(r'Searchresults.csv')
+df = pd.read_csv(r'Searchresults.csv')
 st.write(df)
 
 if st.button('Upload into data base'):
-  st.write(tweets_df.to_csv(r'C:\Users\Deepak\Desktop\Searchresult.csv', mode='a'))
+  st.write(tweets_df.to_csv(r'Database.csv', mode='a'))
+
   print("Uploaded")
 
-ds=pd.read_csv(r'C:\Users\Deepak\Desktop\Searchresult.csv')
+
+ds=pd.read_csv(r'Database.csv')
 
 @st.experimental_memo
 def convert_df(df):
@@ -49,12 +57,14 @@ st.download_button(
    key='download-csv'
 )
 
+
+
 csv = convert_df(ds)
 
 st.download_button(
    "Download Database CSV File (You can download the current one after uploading)",
    csv,
-   "Searchresult.csv",
+   "Database.csv",
    key='down-csv'
 )
 
@@ -85,12 +95,13 @@ def make_json(csvFilePath, jsonFilePath):
     with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
 
+
 # Driver Code
 
 # Decide the two file paths according to your
 # computer system
-csvFilePath = r'C:\Users\Deepak\Desktop\Searchresults.csv'
-jsonFilePath = r'C:\Users\Deepak\Desktop\Searchresults.json'
+csvFilePath = r'Searchresults.csv'
+jsonFilePath = r'Searchresults.json'
 # Call the make_json function
 make_json(csvFilePath, jsonFilePath)
 
@@ -101,6 +112,6 @@ st.json(json_string, expanded=True)
 st.download_button(
     label="Download Current JSON File",
     file_name="Searchresults.json",
-    mime=r'C:\Users\Deepak\Desktop\Searchresults.json',
+    mime=r'Searchresults.json',
     data=json_string,
 )
